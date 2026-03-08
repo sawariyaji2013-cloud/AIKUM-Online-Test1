@@ -1,16 +1,14 @@
-```html
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-
 <meta charset="UTF-8">
-<title>AIKUM शिक्षा केंद्र Online Exam</title>
+<title>AIKUM शिक्षा केंद्र Online Test</title>
 
 <style>
 
 body{
 font-family:Arial;
-background:#f4f6f8;
+background:#f2f2f2;
 margin:0;
 }
 
@@ -19,56 +17,44 @@ background:#0f3460;
 color:white;
 text-align:center;
 padding:20px;
-font-size:30px;
+font-size:28px;
 }
 
 .container{
 max-width:1000px;
 margin:auto;
 background:white;
-padding:30px;
+padding:25px;
 margin-top:20px;
 border-radius:10px;
 box-shadow:0 0 10px gray;
 }
 
 .question{
-margin-top:20px;
+margin-top:18px;
 font-size:18px;
 }
 
 .timer{
-color:red;
 font-size:22px;
+color:red;
 text-align:right;
 }
 
 button{
+padding:10px 20px;
 background:#27ae60;
 color:white;
-padding:12px 25px;
 border:none;
-border-radius:5px;
+border-radius:6px;
 font-size:18px;
 cursor:pointer;
-margin-top:10px;
+margin-top:15px;
 }
 
 .result{
-font-size:24px;
+font-size:22px;
 margin-top:20px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
-
-table,th,td{
-border:1px solid gray;
-padding:10px;
-text-align:center;
 }
 
 </style>
@@ -79,12 +65,12 @@ text-align:center;
 
 <header>
 AIKUM शिक्षा केंद्र  
-Online Exam Portal
+Full Mock Test
 </header>
 
 <div class="container" id="login">
 
-<h2>छात्र का नाम लिखें</h2>
+<h2>अपना नाम लिखें</h2>
 
 <input type="text" id="name" style="padding:10px;width:60%">
 
@@ -102,45 +88,48 @@ Online Exam Portal
 
 <div id="questions"></div>
 
-<button onclick="submitExam()">Test Submit करें</button>
+<button onclick="submitExam()">Test Submit</button>
 
 <div class="result" id="result"></div>
-
-<button onclick="downloadCertificate()" id="certBtn" style="display:none">
-Certificate Download
-</button>
-
-</div>
-
-<div class="container">
-
-<h2>Topper Board</h2>
-
-<table id="topperTable">
-
-<tr>
-<th>नाम</th>
-<th>स्कोर</th>
-<th>प्रतिशत</th>
-</tr>
-
-</table>
 
 </div>
 
 <script>
 
-let questions=[]
+let questions=[
 
-for(let i=1;i<=100;i++){
+// संविधान
+["संविधान की प्रस्तावना में समाजवादी और पंथनिरपेक्ष शब्द किस संशोधन से जुड़े?",["42वां","44वां","52वां","86वां"],0],
 
-questions.push([
-"प्रश्न "+i+": 3/4 + 1/2 = ?",
-["1.00","1.25","1.50","1.75"],
-1
-])
+["मौलिक अधिकार संविधान के किस भाग में हैं?",["भाग II","भाग III","भाग IV","भाग V"],1],
 
-}
+["अस्पृश्यता का अंत किस अनुच्छेद में है?",["15","16","17","18"],2],
+
+["संसदीय प्रणाली किस देश से ली गई है?",["अमेरिका","ब्रिटेन","कनाडा","फ्रांस"],1],
+
+["राष्ट्रीय आपातकाल किस अनुच्छेद में है?",["350","352","356","360"],1],
+
+// रीजनिंग
+["DOG = EPH तो CAT = ?",["DBU","DCV","DBT","EBV"],2],
+
+["एक लाइन में 40 विद्यार्थी हैं, राहुल ऊपर से 12वें स्थान पर है। नीचे से स्थान?",["28","29","30","31"],1],
+
+["1 के सामने 6 और 2 के सामने 5 है। 3 के सामने क्या होगा?",["1","2","4","6"],2],
+
+["SUN = TVO तो MOON = ?",["NPPN","NQPO","NPPQ","NPPO"],3],
+
+// भिन्न
+["7/9 = x/27 तो x ?",["18","19","20","21"],3],
+
+["4/7 का व्युत्क्रम क्या है?",["7/4","4/7","1/7","1/4"],0],
+
+["सबसे बड़ा भिन्न कौन सा है?",["5/6","7/8","9/10","11/12"],3],
+
+["3/5 = x/20 तो x ?",["10","12","15","18"],1],
+
+["यदि भिन्न का अंश और हर दोनों को एक ही संख्या से गुणा करें तो क्या होगा?",["मान बदलता है","मान वही रहता है","शून्य","अनंत"],1]
+
+];
 
 function startExam(){
 
@@ -151,7 +140,7 @@ let html=""
 
 for(let i=0;i<questions.length;i++){
 
-html+="<div class='question'>"+questions[i][0]+"<br>"
+html+="<div class='question'>"+(i+1)+". "+questions[i][0]+"<br>"
 
 for(let j=0;j<4;j++){
 
@@ -190,64 +179,9 @@ let percent=(score/questions.length)*100
 document.getElementById("result").innerHTML=
 
 "छात्र: "+name+"<br>"+
-"सही उत्तर: "+score+" / "+questions.length+"<br>"+
+"कुल प्रश्न: "+questions.length+"<br>"+
+"सही उत्तर: "+score+"<br>"+
 "प्रतिशत: "+percent.toFixed(2)+"%"
-
-document.getElementById("certBtn").style.display="block"
-
-saveTopper(name,score,percent)
-
-}
-
-function saveTopper(name,score,percent){
-
-let toppers=JSON.parse(localStorage.getItem("toppers"))||[]
-
-toppers.push({name:name,score:score,percent:percent})
-
-toppers.sort((a,b)=>b.score-a.score)
-
-toppers=toppers.slice(0,10)
-
-localStorage.setItem("toppers",JSON.stringify(toppers))
-
-showToppers()
-
-}
-
-function showToppers(){
-
-let toppers=JSON.parse(localStorage.getItem("toppers"))||[]
-
-let table=document.getElementById("topperTable")
-
-for(let i=0;i<toppers.length;i++){
-
-let row="<tr><td>"+toppers[i].name+"</td><td>"+toppers[i].score+"</td><td>"+toppers[i].percent.toFixed(2)+"%</td></tr>"
-
-table.innerHTML+=row
-
-}
-
-}
-
-showToppers()
-
-function downloadCertificate(){
-
-let name=document.getElementById("name").value
-
-let text="Certificate of Achievement\n\nयह प्रमाणित किया जाता है कि "+name+" ने AIKUM शिक्षा केंद्र का Online Test सफलतापूर्वक पूरा किया।"
-
-let blob=new Blob([text],{type:"text/plain"})
-
-let link=document.createElement("a")
-
-link.href=URL.createObjectURL(blob)
-
-link.download="Certificate_"+name+".txt"
-
-link.click()
 
 }
 
@@ -271,4 +205,3 @@ submitExam()
 
 </body>
 </html>
-```
